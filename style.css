@@ -1,4 +1,4 @@
-/* *
+*
 {
     padding: 0;
     margin: 0;
@@ -16,4 +16,48 @@ h1
 {
     text-align: center;
     border: 10px double black;
+}
+h3
+{
+    text-align: center;
+    padding: 5px;
+}
+.iron
+{
+    float: left;
+    padding-left: 20px;
+    margin-left: 20px;
+    border: 5px solid black;
+    /* padding: 10px; */
+    margin-bottom: 10px;
+}
+.iron h4
+{
+    margin-right: 20px;
+    padding: 5px;
+}
+.thor
+{
+    float: right;
+    padding-left: 20px;
+    margin-right: 20px;
+    border: 5px solid black;
+    /* padding: 10px; */
+    margin-bottom: 10px;
+}
+.thor h4
+{
+    margin-right: 20px;
+    padding: 5px;
+}
+/* .footer
+{
+    color: white;
+    background-color: black;
+    transition: 1s;
+    margin-top: 500px;
+}
+.footer:hover
+{
+    color: cyan;
 } */
