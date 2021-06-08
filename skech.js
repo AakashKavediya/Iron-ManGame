@@ -1,18 +1,26 @@
 var player, background, playerman, play;
 var score = 0;
 var boost;
+var left, right, front, small;
 function preload() {
   back = loadImage("img/space-1.gif");
   iron = loadImage("img/iron.png");
   thor = loadImage("img/cat.png");
   fire = loadImage("img/fire.png");
   first = loadImage("img/first.png");
-  huk = loadImage("img/hb.png");
+  huk = loadAnimation("img/hb.png");
   hulk = loadImage("img/hulk.png");
   ion = loadImage("img/ion.png");
   thanos = loadImage("img/thanos.png");
   space = loadImage("img/space.png");
   ult = loadImage("img/obs.png");
+  dd = loadImage("img/d3.png");
+  left = loadAnimation("img/left.png", "img/hb.png");
+  right = loadAnimation("img/right.png");
+  small = loadAnimation("img/small.png");
+  front = loadAnimation("img/front.png");
+  dimond = loadImage("img/dimond.png");
+  dS = loadSound("sound/coinSound.mp3");
 }
 
 function setup() {
@@ -23,7 +31,7 @@ function setup() {
 
   edge = createEdgeSprites();
   player = createSprite(200, 500);
-  player.addImage(huk);
+  player.addAnimation("hulkbuster", huk);
   player.scale = 0.2;
 
   // obs = createSprite(200,200);
@@ -33,6 +41,7 @@ function setup() {
 
   obs = new Group();
   boss = new Group();
+  dimondG = new Group();
   // obs3 = new Group();
   // obs4 = new Group();
 }
@@ -44,18 +53,23 @@ function draw() {
   if (keyDown("w")) {
     player.y = player.y - 10;
     man.velocityY = 5;
+    player.changeAnimation("left", small);
+    dS.play();
   }
   if (keyDown("s")) {
     player.y = player.y + 10;
     man.velocityY = -5;
+    player.changeAnimation("front", front);
   }
   if (keyDown("a")) {
     player.x = player.x - 10;
     man.velocityX = 5;
+    player.changeAnimation("left", left);
   }
   if (keyDown("d")) {
     player.x = player.x + 10;
     man.velocityX = -5;
+    player.changeAnimation("right", right);
   }
   if (keyDown("space")) {
     player.y = player.y - 20;
@@ -63,6 +77,7 @@ function draw() {
     // createSprite(50,50);
     // fan.addImage(fire);
     // fan.scale = 2;
+    player.changeAnimation("small", small);
   }
   if (man.y > 1000) {
     man.y = man.height / 4;
@@ -90,6 +105,18 @@ function draw() {
 
     if (temp.isTouching(huk)) {
       //   coinSound.play();
+      score++;
+      temp.destroy();
+      temp = null;
+    }
+  }
+
+  generatedimond();
+  for (var i = 0; i < huk.length; i++) {
+    var temp = huk.get(i);
+
+    if (temp.isTouching(huk)) {
+      dS.play();
       score++;
       temp.destroy();
       temp = null;
@@ -125,7 +152,7 @@ function generateobs() {
   }
 }
 function generatebo() {
-  if (frameCount % 70 === 0) {
+  if (frameCount % 400 === 0) {
     var coin = createSprite(1200, 120, 40, 10);
     coin.addImage(fire);
     coin.x = Math.round(random(50, 1150));
@@ -133,5 +160,16 @@ function generatebo() {
     coin.velocityY = 8;
     coin.lifetime = 1200;
     boss.add(coin);
+  }
+}
+function generatedimond() {
+  if (frameCount % 120 === 0) {
+    var dia = createSprite(1200, 120, 40, 10);
+    dia.addImage(dimond);
+    dia.x = Math.round(random(50, 1150));
+    dia.scale = 0.02;
+    dia.velocityY = 8;
+    dia.lifetime = 1200;
+    dimondG.add(dia);
   }
 }
