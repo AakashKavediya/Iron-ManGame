@@ -109,6 +109,11 @@ function draw() {
       temp.destroy();
       temp = null;
     }
+
+    if (huk.isTouching(thanos)) {
+      obs.distory();
+      obs = null;
+    }
   }
 
   generatedimond();
@@ -127,7 +132,7 @@ function generateobs() {
   if (frameCount % 70 == 0) {
     var ob = createSprite(1200, 1);
     // ob.scale = 0.1;
-    rand = Math.round(random(1, 2));
+    rand = Math.round(random(1, 2, 3));
     switch (rand) {
       case 1:
         ob.addImage(thanos);
@@ -143,6 +148,12 @@ function generateobs() {
         ob.velocityY = 9;
         ob.lifetime = 1200;
         break;
+      case 3:
+        di.addImage(dimond);
+        di.x = random(50, 1100);
+        di.scale = 0.05;
+        di.velocityY = 9;
+        di.lifetime = 1200;
       default:
         break;
     }
